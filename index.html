@@ -1,0 +1,1255 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkillEvolBench</title>
+  <meta name="description" content="SkillEvolBench: Benchmarking the Evolution from Episodic Experience to Procedural Skills." />
+
+  <style>
+    @font-face {
+      font-family: "Open Sans";
+      src: url("assets/OpenSans-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --text: #17202a;
+      --muted: #65717e;
+      --osu-red: #ba0c2f;
+      --line: #ba0c2f;
+      --soft: #faf8f5;
+      --accent: #ba0c2f;
+      --accent-dark: #7a001f;
+      --accent-warm: #9d2235;
+      --accent-soft: #f8e8eb;
+      --paper: #fffaf3;
+      --shadow: none;
+      --radius: 12px;
+      --maxw: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Open Sans", Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #fff;
+      line-height: 1.62;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(var(--maxw), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+    }
+
+    .links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .links a {
+      color: var(--muted);
+    }
+
+    .links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .hero {
+      position: relative;
+      padding: 58px 0 46px;
+      text-align: center;
+      background: #fff;
+    }
+
+    h1 {
+      max-width: 1060px;
+      margin: 0 auto 18px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .hero-title {
+      display: grid;
+      gap: 12px;
+      line-height: 1.04;
+      text-wrap: balance;
+    }
+
+    .title-logo {
+      width: clamp(64px, 7vw, 86px);
+      height: auto;
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+      transform: translateY(2px);
+    }
+
+    .title-name {
+      display: inline-block;
+      color: var(--text);
+      font-size: clamp(32px, 3.4vw, 39px);
+      line-height: 1.18;
+      font-weight: 900;
+      max-width: 1060px;
+      text-align: center;
+      text-wrap: auto;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .project-name {
+      font-variant: small-caps;
+    }
+
+    .title-topline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 0 auto;
+      max-width: 1180px;
+    }
+
+    .title-rule {
+      display: none;
+    }
+
+    .subtitle {
+      max-width: none;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.42;
+      color: var(--muted);
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .authors {
+      max-width: 940px;
+      margin: 20px auto 0;
+      color: #1457ff;
+      font-size: 16px;
+      line-height: 1.42;
+      font-weight: 400;
+      text-align: center;
+      text-wrap: pretty;
+    }
+
+    .author-name,
+    .affiliation-item {
+      white-space: nowrap;
+    }
+
+    .author-name {
+      display: inline-block;
+    }
+
+    .authors sup {
+      font-size: 0.62em;
+      line-height: 0;
+      vertical-align: super;
+    }
+
+    .affiliations {
+      max-width: 780px;
+      margin: 14px auto 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.32;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .correspondence {
+      max-width: 980px;
+      margin: 12px auto 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+      font-weight: 400;
+    }
+
+    .correspondence code {
+      color: #b00000;
+      background: transparent;
+      padding: 0;
+      font-family: "Open Sans", Arial, Helvetica, sans-serif;
+      font-weight: 400;
+    }
+
+    .affil-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 18px auto 0;
+      flex-wrap: wrap;
+    }
+
+    .affil-logo {
+      display: block;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .affil-logo.amazon {
+      height: 52px;
+    }
+
+    .affil-logo.osu {
+      height: 44px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff7f8;
+      color: #202124;
+      font-weight: 800;
+      font-size: 14px;
+      box-shadow: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(28, 43, 58, 0.08);
+      border-color: var(--osu-red);
+      text-decoration: none;
+    }
+
+    .button.primary {
+      color: #202124;
+      background: #fff7f8;
+      border-color: var(--line);
+    }
+
+    .button-icon {
+      width: 17px;
+      height: 17px;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: currentColor;
+    }
+
+    .button-icon svg {
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+
+    .button-logo {
+      width: 17px;
+      height: 17px;
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .arxiv-icon {
+      width: auto;
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hf-icon {
+      color: #ffcc4d;
+    }
+
+    section {
+      padding: 0;
+      border-top: none;
+    }
+
+    section .wrap {
+      padding: 42px 0;
+      border-top: 1px solid rgba(230, 221, 210, 0.8);
+    }
+
+    .section-title {
+      margin: 0 auto 12px;
+      font-size: clamp(1.55rem, 2.4vw, 2.05rem);
+      line-height: 1.12;
+      letter-spacing: 0;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .section-lead {
+      max-width: 1120px;
+      margin: 0 auto 22px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      text-align: center;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .lead-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .paper-text {
+      max-width: 1060px;
+      margin: 0 auto 22px;
+      color: var(--text);
+      font-size: 1.02rem;
+      line-height: 1.68;
+      text-align: justify;
+    }
+
+    .paper-text p {
+      margin: 0 0 12px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .figure-card {
+      overflow: hidden;
+      background: #fff;
+      border-color: var(--osu-red);
+    }
+
+    .figure-card img {
+      width: 100%;
+      display: block;
+      padding: 16px;
+    }
+
+    .figure-caption {
+      margin: 0;
+      padding: 12px 16px 15px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .motivation-list {
+      max-width: 920px;
+      margin: 18px auto 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .motivation-list li {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.96rem;
+    }
+
+    .motivation-list li:nth-child(4n+1),
+    .variant-card:nth-child(4n+1),
+    .metric-glossary div:nth-child(4n+1) {
+      border-color: var(--osu-red);
+    }
+
+    .motivation-list li:nth-child(4n+2),
+    .variant-card:nth-child(4n+2),
+    .metric-glossary div:nth-child(4n+2) {
+      border-color: var(--osu-red);
+    }
+
+    .motivation-list li:nth-child(4n+3),
+    .variant-card:nth-child(4n+3),
+    .metric-glossary div:nth-child(4n+3) {
+      border-color: var(--osu-red);
+    }
+
+    .motivation-list li:nth-child(4n),
+    .variant-card:nth-child(4n),
+    .metric-glossary div:nth-child(4n) {
+      border-color: var(--osu-red);
+    }
+
+    .motivation-list strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .narrative-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .narrative-card {
+      padding: 16px;
+      min-height: 126px;
+    }
+
+    .narrative-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+      line-height: 1.28;
+    }
+
+    .narrative-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .role-list {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      margin: 16px 0 18px;
+    }
+
+    .role-group {
+      border: 1px solid var(--osu-red);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff8f9;
+    }
+
+    .role-group.learning {
+      grid-column: span 3;
+    }
+
+    .role-group.deployment {
+      grid-column: span 3;
+    }
+
+    .role-group-title {
+      margin: 0 0 10px;
+      color: var(--text);
+      font-weight: 900;
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    .role-group-subtitle {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    .role-pill-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .role-pill {
+      padding: 9px 8px;
+      border: 1px solid var(--osu-red);
+      border-radius: 12px;
+      background: #fff8f9;
+      text-align: center;
+      font-weight: 800;
+      color: var(--accent-dark);
+      font-size: 0.84rem;
+      line-height: 1.25;
+    }
+
+    .variant-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .variant-card {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .variant-card h3 {
+      margin: 0 0 6px;
+      color: var(--text);
+      font-size: 0.92rem;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .variant-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .result-grid .figure-card img {
+      padding: 10px;
+    }
+
+    .metric-glossary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .metric-glossary div {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .metric-glossary strong {
+      color: var(--text);
+      margin-right: 4px;
+      font-weight: 900;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      min-height: 132px;
+      padding: 16px;
+    }
+
+    .metric .big {
+      margin-bottom: 8px;
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: 0;
+      font-weight: 900;
+      color: var(--accent-dark);
+    }
+
+    .metric h3,
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+      line-height: 1.25;
+    }
+
+    .metric p,
+    .info-card p,
+    .info-card li {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .info-card {
+      padding: 22px;
+    }
+
+    .info-card ul {
+      margin: 10px 0 0;
+      padding-left: 1.2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      font-size: 0.98rem;
+    }
+
+    th,
+    td {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8e8eb;
+      color: #7a001f;
+      font-weight: 900;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td:first-child {
+      font-weight: 900;
+      color: var(--accent-dark);
+      white-space: nowrap;
+    }
+
+    .phase-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .phase {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .phase h3 {
+      margin: 0 0 8px;
+    }
+
+    .phase p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .phase.learning {
+      background: #fbf2e6;
+    }
+
+    .phase.frozen {
+      background: #fff5ee;
+    }
+
+    .phase.replay {
+      background: #f4f7fb;
+    }
+
+    .finding {
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent-warm);
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: #14201f;
+      color: #edf2ff;
+      font-size: 0.93rem;
+      line-height: 1.52;
+    }
+
+    .copy-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .copy-btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 50px 0 70px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .links {
+        display: none;
+      }
+
+      .grid-3,
+      .grid-2,
+      .phase-row,
+      .narrative-grid,
+      .role-list,
+      .role-pill-row,
+      .motivation-list,
+      .variant-grid,
+      .result-grid,
+      .metric-glossary {
+        grid-template-columns: 1fr;
+      }
+
+      .role-group.learning,
+      .role-group.deployment {
+        grid-column: auto;
+      }
+
+      .hero {
+        padding-top: 52px;
+      }
+
+      .title-topline {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .title-name {
+        text-align: center;
+      }
+
+      .title-line {
+        display: inline;
+      }
+
+      .subtitle {
+        white-space: normal;
+      }
+
+      .lead-line {
+        display: inline;
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .title-name {
+        max-width: 850px;
+        font-size: clamp(30px, 3.2vw, 36px);
+      }
+
+      .title-line {
+        display: inline;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="links">
+        <a href="#abstract">Abstract</a>
+        <a href="#introduction">Introduction</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#protocol">Protocol</a>
+        <a href="#findings">Findings</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero wrap">
+      <h1 class="hero-title">
+        <span class="title-topline">
+          <img class="title-logo" src="assets/icon.png" alt="" />
+          <span class="title-name">
+            <span class="title-line"><span class="project-name">SkillEvolBench:</span> Benchmarking the Evolution</span>
+            <span class="title-line">from Episodic Experience to Procedural Skills</span>
+          </span>
+        </span>
+        <span class="title-rule" aria-hidden="true"></span>
+      </h1>
+
+      <p class="subtitle">
+        Can one-off task experience become reusable instructions that future agents can follow?
+      </p>
+
+      <div class="authors">
+        <span class="author-name">Yingtie Lei<sup>1,*</sup></span>,
+        <span class="author-name">Zhongwei Wan<sup>1,*</sup></span>,
+        <span class="author-name">Jiankun Zhang<sup>2</sup></span>,
+        <span class="author-name">Samiul Alam<sup>1</sup></span>,
+        <span class="author-name">Zixuan Zhong<sup>3</sup></span>,
+        <span class="author-name">Peizhou Huang<sup>4</sup></span>,
+        <span class="author-name">Xin Wang<sup>1</sup></span>,
+        <span class="author-name">Jingxuan Zhang<sup>1</sup></span>,
+        <span class="author-name">Donghao Zhou<sup>5</sup></span>,
+        <span class="author-name">Yunta Hsieh<sup>4</sup></span>,
+        <span class="author-name">Zhihao Dou<sup>6</sup></span>,
+        <span class="author-name">Hui Shen<sup>4</sup></span>,
+        <span class="author-name">Yan Xu<sup>7</sup></span>,
+        <span class="author-name">Dimitrios Dimitriadis<sup>7</sup></span>,
+        <span class="author-name">Tuo Zhang<sup>7</sup></span>,
+        <span class="author-name">Mi Zhang<sup>1</sup></span>
+      </div>
+
+      <div class="affiliations">
+        <span class="affiliation-item"><sup>1</sup> The Ohio State University</span>,
+        <span class="affiliation-item"><sup>2</sup> The University of Chicago</span>,
+        <span class="affiliation-item"><sup>3</sup> University College London</span>,
+        <span class="affiliation-item"><sup>4</sup> University of Michigan</span>,
+        <span class="affiliation-item"><sup>5</sup> The Chinese University of Hong Kong</span>,
+        <span class="affiliation-item"><sup>6</sup> Case Western Reserve University</span>,
+        <span class="affiliation-item"><sup>7</sup> Amazon</span><br />
+        * Equal contribution
+      </div>
+
+      <div class="correspondence">
+        Correspondence: Tuo Zhang <code>tuozhang@amazon.com</code>, Mi Zhang <code>mizhang.1@osu.edu</code>
+      </div>
+
+      <div class="affil-logos" aria-label="Affiliation logos">
+        <img class="affil-logo amazon" src="assets/amazon.png" alt="Amazon" />
+        <img class="affil-logo osu" src="assets/osu2.png" alt="The Ohio State University" />
+      </div>
+
+        <div class="buttons">
+          <a class="button primary" href="assets/skillevolbench.pdf">
+          <img class="button-logo" src="assets/arxiv-logo.svg" alt="" />
+          Paper
+        </a>
+        <a class="button" href="#">
+          <span class="button-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.9c-2.78.62-3.37-1.22-3.37-1.22-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.64-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.35 9.35 0 0 1 12 6.93c.85 0 1.7.12 2.5.34 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.95.68 1.92v2.8c0 .27.18.59.69.49A10.19 10.19 0 0 0 22 12.24C22 6.58 17.52 2 12 2z"/></svg>
+          </span>
+          Code
+        </a>
+        <a class="button" href="#">
+          <img class="button-logo" src="assets/hf-logo.svg" alt="" />
+          Data
+        </a>
+        <a class="button" href="#citation">
+          <span class="button-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10a2 2 0 0 1 2 2v14l-7-3-7 3V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          BibTeX
+        </a>
+      </div>
+    </header>
+
+    <section id="abstract">
+      <div class="wrap">
+        <h2 class="section-title">Abstract</h2>
+
+        <div class="paper-text">
+          <p>
+            Large language model (LLM) agents accumulate rich episodic trajectories while solving real-world tasks, but it remains unclear whether such experience can be distilled into reusable procedural skills. We introduce <strong>SkillEvolBench</strong>, a diagnostic benchmark for evaluating this step from experience reuse to skill formation. It contains 180 tasks across six real-world agent environments, organized into role-conditioned task families with shared latent procedures. Agents learn from acquisition tasks, update an external skill library using compacted trajectories and verifier feedback, and then face frozen deployment tasks testing transfer under context shift, adversarial shortcuts, and composition. By comparing self-generated and curated-start skill evolution against no-skill and raw-trajectory controls, SkillEvolBench separates procedural abstraction from base capability, curated prior knowledge, and direct reuse of episodic traces.
+          </p>
+
+          <p>
+            Across ten model configurations and three agent harnesses, we find that current agents often adapt locally but rarely form robust reusable skills. Skill-based conditions can improve acquisition or replay, and individual models sometimes gain on specific deployment axes. However, these gains are unstable under context shift, adversarial shortcuts, and composition. Raw-trajectory reuse frequently outperforms distilled skills, suggesting that current abstraction procedures discard contextual and procedural cues that remain useful for future tasks. More frequent skill updating is also not monotonically beneficial, as additional revisions can improve coverage while introducing episode-specific drift. These findings highlight SkillEvolBench as a testbed for measuring when one-off experience becomes durable procedural knowledge.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="introduction">
+      <div class="wrap">
+        <h2 class="section-title">From Episodes to Skills</h2>
+
+        <p class="section-lead">
+          Real-world agents leave behind rich trajectories: tool calls, files, tests, failed hypotheses, observations, and verifier feedback. <strong>SkillEvolBench</strong> asks whether those noisy one-off episodes can be distilled into compact procedural skills that future agents can <span class="nowrap">load, follow, and transfer.</span>
+        </p>
+
+        <div class="paper-text">
+          <p>
+            Unlike static question-answering systems, practical agents interact with external environments over multi-step trajectories by reasoning, calling tools, inspecting files, executing code, editing artifacts, and observing feedback. Each task attempt therefore records how the agent acted, where it recovered, where it failed, and which checks exposed the failure. Prior experience-reuse methods show that these traces contain useful evidence, but reusing an episode is not the same as extracting a procedure. A trajectory records what happened once and often entangles transferable decisions with fixture-specific details, failed hypotheses, and mistakes.
+          </p>
+
+          <p>
+            SkillEvolBench targets the missing step between episodic memory and procedural reuse. If curated skills demonstrate that procedural knowledge can help agents, and trajectory-reuse methods demonstrate that episodes contain task-solving evidence, the central question is whether agents can convert noisy one-off experience into explicit skills that state what to do again, when to apply it, and what to verify along the way.
+          </p>
+        </div>
+
+        <div class="card figure-card">
+          <img src="assets/teaser-1.png" alt="SkillEvolBench teaser showing episodic attempts, verifier feedback, skill authoring, and a procedural skill library" />
+          <p class="figure-caption">
+            <strong>Core question.</strong> During acquisition, task attempts are compacted into trajectory summaries and paired with structured verifier feedback. A host-side Skill Author writes, refines, or skips a skill update; the resulting library is frozen before harder deployment tasks.
+          </p>
+        </div>
+
+        <ul class="motivation-list">
+          <li>
+            <strong>Episodes are rich but noisy.</strong>
+            Agent trajectories contain useful tool calls, observations, tests, and mistakes, but they also mix transferable decisions with incidental details and failed hypotheses.
+          </li>
+          <li>
+            <strong>Experience reuse is not skill formation.</strong>
+            Replaying an old trajectory can help with nearby tasks, yet future tasks require explicit guidance about what to do again, when to apply it, and what to verify.
+          </li>
+          <li>
+            <strong>Verifier feedback supplies abstraction evidence.</strong>
+            Outcome checks, process violations, hidden tests, and rubric diagnoses expose which parts of an episode should become reusable procedure.
+          </li>
+          <li>
+            <strong>Frozen deployment separates real transfer from repair.</strong>
+            By freezing the skill library before harder related tasks, SkillEvolBench measures whether procedural knowledge was formed before deployment.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="benchmark">
+      <div class="wrap">
+        <h2 class="section-title">Benchmark Design</h2>
+
+        <p class="section-lead">
+          SkillEvolBench contains <strong>180 tasks</strong> across <strong>six real-world agent environments</strong>. Each environment includes five recurring procedural families, and each family follows a six-role progression from learning episodes to frozen deployment.
+        </p>
+
+        <div class="paper-text">
+          <p>
+            The benchmark spans common forms of agent work: code modification, API orchestration, data processing, document transformation, research synthesis, and communication operations. A task family corresponds to a recurring procedural capability rather than a topic label, so families are related enough for experience to matter but different enough to separate procedural learning from memorization.
+          </p>
+
+          <p>
+            Each family is instantiated through six roles. The canonical task presents the base procedure, the enriched task exposes a missing sub-capability, and the variant task changes the surface form while preserving the same procedure. The context-shift task embeds the skill need in a broader request, the adversarial task introduces shortcut solutions that can pass shallow checks, and the composition task requires the target skill to interact with other skills. This progression tests transfer, implicit invocation, shortcut resistance, and modular composition within the same family.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card metric">
+            <div class="big">180</div>
+            <h3>Tasks</h3>
+            <p>Role-conditioned tasks spanning acquisition, replay, and frozen deployment.</p>
+          </div>
+
+          <div class="card metric">
+            <div class="big">6</div>
+            <h3>Environments</h3>
+            <p>Code, tool/API, data, document, research, and communication workflows.</p>
+          </div>
+
+          <div class="card metric">
+            <div class="big">30</div>
+            <h3>Skill Families</h3>
+            <p>Recurring procedural capabilities that vary surface form and failure mode.</p>
+          </div>
+        </div>
+
+        <div class="card figure-card" style="margin-top:18px;">
+          <img src="assets/skill_taxonomy_pastel-1.png" alt="SkillEvolBench taxonomy across environments, skill families, and task roles" />
+          <p class="figure-caption">
+            <strong>Taxonomy.</strong> The benchmark organizes agent work into controlled skill-evolution arcs. The first three roles expose and stress-test the target procedure; the last three evaluate transfer, shortcut resistance, and composition.
+          </p>
+        </div>
+
+        <div class="role-list" aria-label="Six task roles">
+          <div class="role-group learning">
+            <h3 class="role-group-title">
+              Learning / Acquisition Tasks
+              <span class="role-group-subtitle">The agent observes episodes and may update the family skill.</span>
+            </h3>
+            <div class="role-pill-row">
+              <div class="role-pill">Canonical</div>
+              <div class="role-pill">Enriched</div>
+              <div class="role-pill">Variant</div>
+            </div>
+          </div>
+
+          <div class="role-group deployment">
+            <h3 class="role-group-title">
+              Frozen Deployment Tasks
+              <span class="role-group-subtitle">The evolved library is frozen; tasks test transfer, robustness, and composition.</span>
+            </h3>
+            <div class="role-pill-row">
+              <div class="role-pill">Context Shift</div>
+              <div class="role-pill">Adversarial</div>
+              <div class="role-pill">Composition</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="narrative-grid">
+          <div class="card narrative-card">
+            <h3>Procedural families, not topic labels</h3>
+            <p>Each family is defined by a reusable capability such as diagnosis, validation, extraction, reconciliation, or coordination.</p>
+          </div>
+
+          <div class="card narrative-card">
+            <h3>Learning roles expose gaps</h3>
+            <p>Canonical, enriched, and variant tasks reveal what an initial procedure covers and where it needs revision.</p>
+          </div>
+
+          <div class="card narrative-card">
+            <h3>Deployment roles stress generality</h3>
+            <p>Context shift, adversarial shortcuts, and composition test whether the evolved skill survives realistic pressure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="protocol">
+      <div class="wrap">
+        <h2 class="section-title">Skill Evolution Protocol</h2>
+
+        <p class="section-lead">
+          <span class="lead-line">Each environment is evaluated as an independent lifelong episode: the agent learns within each family, freezes the library for deployment,</span>
+          <span class="lead-line">replays acquisition tasks with the final library, and then resets before switching environments.</span>
+        </p>
+
+        <div class="paper-text">
+          <p>
+            Acquisition uses the canonical, enriched, and variant roles. All acquisition tasks in an environment are completed before deployment begins. The active library is scoped to the environment: skills learned from earlier families may be visible to later families in the same environment, but skills never transfer across environments. Each acquisition attempt yields a compacted trajectory summary from harness-recorded artifacts such as instructions, file accesses, tool calls, commands, edits, generated outputs, tests, and final responses; verifier feedback includes outcome results, process checks, rewards, and diagnostics.
+          </p>
+
+          <p>
+            Skill authoring is family-local. Although the task-solving agent may read the environment-level library, the Skill Author receives only same-family skills and same-family acquisition history. After acquisition, the library is frozen: deployment tasks may read and apply accumulated skills but may not create, revise, retire, or otherwise modify them. Replay then reruns the original acquisition tasks using the final frozen library, providing a within-environment counterfactual for whether accumulated knowledge helps the tasks it was built from.
+          </p>
+        </div>
+
+        <div class="card figure-card">
+          <img src="assets/protocol-1.png" alt="Skill evolution protocol showing initialization, acquisition, frozen evaluation, replay, and reset" />
+          <p class="figure-caption">
+            <strong>Protocol.</strong> Skill evolution is evaluated under self-generated and curated-start settings against no-skill and raw-trajectory controls. This isolates procedural abstraction from base capability, curated prior knowledge, and direct episodic reuse.
+          </p>
+        </div>
+
+        <div class="narrative-grid">
+          <div class="card narrative-card">
+            <h3>Acquisition creates evidence</h3>
+            <p>Canonical, enriched, and variant tasks produce compacted execution artifacts and verifier feedback for possible skill updates.</p>
+          </div>
+
+          <div class="card narrative-card">
+            <h3>Skill updates are externalized</h3>
+            <p>A separated Skill Author updates an environment-scoped library, making the learned procedure inspectable and reusable.</p>
+          </div>
+
+          <div class="card narrative-card">
+            <h3>Deployment is frozen</h3>
+            <p>Context-shift, adversarial, and composition tasks test transfer without further updates; replay isolates local recovery.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="findings">
+      <div class="wrap">
+        <h2 class="section-title">Experimental Variants and Findings</h2>
+
+        <p class="section-lead">
+          We evaluate ten model configurations across Claude Code, Codex CLI, and Gemini CLI. The experiments compare skill evolution against no-memory and raw-trajectory controls to separate reusable procedural abstraction from local episode reuse.
+        </p>
+
+        <div class="paper-text">
+          <p>
+            The experimental suite uses three agent harnesses under the same benchmark protocol: Claude Code, Codex CLI, and Gemini CLI. Claude Code is evaluated with Opus 4.6, Opus 4.5, Sonnet 4.6, and Sonnet 4.5; Codex CLI is evaluated with GPT-5.4, GPT-5.3-Codex, and GPT-5.2-Codex; Gemini CLI is evaluated with Gemini 3.1 Pro, Gemini 3 Flash, and Gemini 2.5 Pro. Success is measured at acquisition, replay, and frozen deployment, with deployment further decomposed into context shift, adversarial robustness, and composition.
+          </p>
+
+          <p>
+            The variants below distinguish several possible sources of improvement. NO-SKILL measures base agent capability without persistent memory. RAW-TRAJECTORY retrieves compacted acquisition traces without inducing skills, testing direct episodic reuse. Curated-start variants measure whether a useful but incomplete human-written skill can be refined from experience. Self-generated variants measure whether agents can induce skill artifacts from their own execution evidence and verifier feedback.
+          </p>
+        </div>
+
+        <div class="variant-grid" aria-label="Experiment variants">
+          <div class="variant-card">
+            <h3>NO-SKILL</h3>
+            <p>No persistent memory or skill library is provided.</p>
+          </div>
+
+          <div class="variant-card">
+            <h3>RAW-TRAJECTORY</h3>
+            <p>Retrieves compacted same-family acquisition trajectories without inducing procedural skills.</p>
+          </div>
+
+          <div class="variant-card">
+            <h3>CURATED-STATIC</h3>
+            <p>Starts from a fixed gap-exposed curated skill and never revises it.</p>
+          </div>
+
+          <div class="variant-card">
+            <h3>CURATED-REVISION</h3>
+            <p>Starts from the curated seed and revises it after failed eligible acquisition attempts.</p>
+          </div>
+
+          <div class="variant-card">
+            <h3>CURATED-REVISION-ALWAYS</h3>
+            <p>Starts from the curated seed and invokes skill revision after every acquisition attempt.</p>
+          </div>
+
+          <div class="variant-card">
+            <h3>SELFGEN-ZERO-SHOT</h3>
+            <p>Generates a metadata-only skill before execution; the skill remains fixed.</p>
+          </div>
+
+          <div class="variant-card">
+            <h3>SELFGEN-REVISION</h3>
+            <p>Induces a skill from canonical trajectory evidence, then revises after failed later acquisition attempts.</p>
+          </div>
+
+          <div class="variant-card">
+            <h3>SELFGEN-ALWAYS</h3>
+            <p>Updates the self-generated skill after every acquisition attempt.</p>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div class="card figure-card">
+            <img src="assets/curate.png" alt="Curated-start skill results compared with no-skill baselines" />
+            <p class="figure-caption">
+              <strong>Curated-start results.</strong> Fixed curated skills provide a bounded procedural prior, while revision variants test whether acquisition feedback can improve that prior without overfitting.
+            </p>
+          </div>
+
+          <div class="card figure-card">
+            <img src="assets/self-generate.png" alt="Self-generated skill results compared with no-skill baselines" />
+            <p class="figure-caption">
+              <strong>Self-generated results.</strong> Agents induce skills from their own episodes, revealing whether verifier-grounded experience can become reusable procedural guidance.
+            </p>
+          </div>
+        </div>
+
+        <div class="metric-glossary" aria-label="Metric definitions">
+          <div><strong>LSR</strong>Learning Success Rate on acquisition tasks before the library is frozen.</div>
+          <div><strong>RSR</strong>Replay Success Rate on the original acquisition tasks using the final frozen library.</div>
+          <div><strong>ESR</strong>Deployment Success Rate aggregated over all frozen deployment tasks.</div>
+          <div><strong>CSSR</strong>Context-Shift Success Rate, measuring whether the skill is invoked when the need is embedded in a broader request.</div>
+          <div><strong>ARSR</strong>Adversarial Robustness Success Rate, measuring resistance to shortcut solutions that can pass shallow checks.</div>
+          <div><strong>CompSR</strong>Composition Success Rate, measuring whether the target skill combines with other skills in realistic workflows.</div>
+        </div>
+
+        <div class="card figure-card">
+          <img src="assets/rawtraj_vs_skills_delta_heatmap-1.png" alt="Skill-based conditions relative to raw-trajectory controls" />
+          <p class="figure-caption">
+            <strong>Skill-based conditions relative to RAW-TRAJECTORY.</strong> Cells report percentage-point differences from raw episodic reuse across LSR, RSR, ESR, CSSR, ARSR, and CompSR. Predominantly negative cells indicate that distilled skills often lose information that raw trajectories still preserve.
+          </p>
+        </div>
+
+        <div class="grid-2" style="margin-top:18px;">
+          <div class="card finding">
+            <h3>Local gains do not imply reusable procedures.</h3>
+            <p>Skill-based conditions sometimes improve LSR or RSR without improving frozen deployment. For example, SELFGEN-REVISION with Claude Opus 4.6 improves LSR by 5.5 pp and RSR by 10.0 pp over NO-SKILL, but decreases ESR, CSSR, and CompSR. These gains look like local recovery rather than robust skill formation.</p>
+          </div>
+
+          <div class="card finding">
+            <h3>Deployment axes reveal different failures.</h3>
+            <p>ESR, CSSR, ARSR, and CompSR expose different bottlenecks. GPT-5.4 under CURATED-REVISION-ALWAYS improves ESR, ARSR, and CompSR but drops CSSR, suggesting missed invocation under broader context. Gemini 3 Flash gains on CSSR and CompSR but drops sharply on ARSR, indicating shortcut vulnerability.</p>
+          </div>
+
+          <div class="card finding">
+            <h3>Raw trajectories expose an abstraction bottleneck.</h3>
+            <p>The RAW-TRAJECTORY comparison is the clearest stress test for skill abstraction. If distilled skills preserved reusable procedures, they should match or exceed raw episodic traces. Instead, the heatmap is largely negative; GPT-5.4 under SELFGEN-REVISION improves over RAW-TRAJECTORY on LSR and RSR but falls on ESR, CSSR, ARSR, and CompSR.</p>
+          </div>
+
+          <div class="card finding">
+            <h3>More updates are not monotonically better.</h3>
+            <p>The ALWAYS policy reveals a coverage-drift trade-off. More frequent updates can improve deployment coverage, as with GPT-5.2-Codex and Gemini 2.5 Pro on some deployment metrics, but it can also reduce local gains or introduce episode-specific clutter. In curated-start settings, ALWAYS does not consistently dominate targeted revision.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation">
+      <div class="wrap">
+        <div class="copy-row">
+          <h2 class="section-title" style="margin:0;">Citation</h2>
+          <button class="copy-btn" onclick="copyBibtex()">Copy BibTeX</button>
+        </div>
+
+        <pre id="bibtex">@article{skillevolbench2026,
+  title   = {SkillEvolBench: Benchmarking the Evolution from Episodic Experience to Procedural Skills},
+  author  = {Author names to be added},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>SkillEvolBench project page.</p>
+    </div>
+  </footer>
+
+  <script>
+    function copyBibtex() {
+      const text = document.getElementById("bibtex").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector(".copy-btn");
+        const old = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(() => {
+          btn.textContent = old;
+        }, 1200);
+      });
+    }
+  </script>
+</body>
+</html>
