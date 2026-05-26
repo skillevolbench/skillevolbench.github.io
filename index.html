@@ -565,6 +565,303 @@
       padding: 10px;
     }
 
+    .leaderboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 18px 0;
+    }
+
+    .leaderboard-card {
+      overflow: hidden;
+      border-color: var(--osu-red);
+    }
+
+    .leaderboard-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--accent-dark);
+      color: #fff;
+    }
+
+    .leaderboard-head h3 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.25;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .leaderboard-head p {
+      max-width: 700px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .leaderboard-formula {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .leaderboard-formula strong {
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .formula-chip {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 7px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      min-width: 1320px;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    .rank-col {
+      width: 60px;
+    }
+
+    .harness-col {
+      width: 165px;
+    }
+
+    .model-col {
+      width: 215px;
+    }
+
+    .condition-col {
+      width: 274px;
+    }
+
+    .metric-col {
+      width: 88px;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+      padding: 10px 8px;
+      vertical-align: middle;
+    }
+
+    .leaderboard-table th:nth-child(2),
+    .leaderboard-table th:nth-child(3),
+    .leaderboard-table th:nth-child(4),
+    .leaderboard-table td:nth-child(2),
+    .leaderboard-table td:nth-child(3),
+    .leaderboard-table td:nth-child(4) {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .leaderboard-table th {
+      border-bottom: 2px solid var(--line);
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 900;
+      user-select: none;
+      white-space: nowrap;
+      text-align: center;
+      transition:
+        background-color 160ms ease,
+        color 160ms ease;
+    }
+
+    .leaderboard-table th:hover {
+      background: #f3d6dc;
+      color: var(--accent-dark);
+    }
+
+    .leaderboard-table td {
+      color: var(--text);
+      text-align: center;
+      border-bottom: 1px solid rgba(186, 12, 47, 0.78);
+      font-weight: 650;
+    }
+
+    .leaderboard-table td:first-child {
+      width: 56px;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .rank-badge {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      line-height: 22px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 1000;
+    }
+
+    .rank-1 {
+      background: #ffd700;
+      color: #000;
+    }
+
+    .rank-2 {
+      background: #c0c0c0;
+      color: #000;
+    }
+
+    .rank-3 {
+      background: #cd7f32;
+      color: #fff;
+    }
+
+    .rank-other {
+      background: #f3e2e6;
+      color: var(--muted);
+    }
+
+    .leaderboard-table td:nth-child(3),
+    .leaderboard-table td:nth-child(4) {
+      white-space: nowrap;
+    }
+
+    .leaderboard-table td:nth-child(n+5) {
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .leaderboard-table th:nth-child(n+5),
+    .leaderboard-table td:nth-child(n+5) {
+      min-width: 88px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .label-with-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      max-width: 100%;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .leaderboard-logo {
+      width: 17px;
+      height: 17px;
+      display: block;
+      flex: 0 0 auto;
+      border-radius: 5px;
+    }
+
+    .label-text {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .leaderboard-table tr.baseline {
+      background: #fffdf9;
+    }
+
+    .leaderboard-table tbody tr {
+      transition: background-color 180ms ease;
+    }
+
+    .leaderboard-table tbody.sorting tr {
+      animation: leaderboard-row-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: calc(var(--row-index, 0) * 12ms);
+    }
+
+    @keyframes leaderboard-row-in {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .leaderboard-table th.sortable::after {
+      content: " \21C5";
+      color: var(--muted);
+      font-size: 0.68rem;
+      opacity: 0.36;
+    }
+
+    .leaderboard-table th.sort-asc::after {
+      content: " \2191";
+      color: var(--accent-dark);
+      opacity: 1;
+    }
+
+    .leaderboard-table th.sort-desc::after {
+      content: " \2193";
+      color: var(--accent-dark);
+      opacity: 1;
+    }
+
+    .overall-cell {
+      color: var(--accent-dark);
+      font-weight: 900;
+    }
+
+    .metric-value {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .missing-cell {
+      color: #9a9a9a;
+    }
+
+    .leaderboard-note {
+      margin: 8px 0 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .leaderboard-table tbody.sorting tr,
+      .leaderboard-table th,
+      .leaderboard-table tbody tr {
+        animation: none;
+        transition: none;
+      }
+    }
+
     .metric-glossary {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -759,8 +1056,17 @@
       .motivation-list,
       .variant-grid,
       .result-grid,
+      .leaderboard-grid,
       .metric-glossary {
         grid-template-columns: 1fr;
+      }
+
+      .leaderboard-head {
+        display: block;
+      }
+
+      .leaderboard-head p {
+        margin-top: 6px;
       }
 
       .role-group.learning,
@@ -1159,21 +1465,101 @@
           </div>
         </div>
 
-        <div class="result-grid">
-          <div class="card figure-card">
-            <img src="assets/curate.png" alt="Curated-start skill results compared with no-skill baselines" />
-            <p class="figure-caption">
-              <strong>Curated-start results.</strong> Fixed curated skills provide a bounded procedural prior, while revision variants test whether acquisition feedback can improve that prior without overfitting.
-            </p>
-          </div>
+        <div class="leaderboard-grid" aria-label="Skill evolution leaderboards">
+          <article class="card leaderboard-card">
+            <div class="leaderboard-head">
+              <h3>Curated-start Leaderboard</h3>
+              <p>Fixed curated seeds and revision variants compared across acquisition, replay, and frozen deployment metrics.</p>
+            </div>
+            <div class="leaderboard-formula">
+              <strong>Overall:</strong> all metrics are reported as percentages and higher is better.
+              <div class="formula-chip">Overall = mean(LSR, RSR, ESR, CSSR, ARSR, CompSR)</div>
+              <div>Rows without an available RSR value average the remaining reported metrics.</div>
+            </div>
+            <div class="table-scroll">
+              <table class="leaderboard-table" data-leaderboard="curated">
+                <colgroup>
+                  <col class="rank-col" />
+                  <col class="harness-col" />
+                  <col class="model-col" />
+                  <col class="condition-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col" class="sortable" data-sort="rank">Rank</th>
+                    <th scope="col" class="sortable" data-sort="harness">Agent Harness</th>
+                    <th scope="col" class="sortable" data-sort="model">Model</th>
+                    <th scope="col" class="sortable" data-sort="condition">Condition</th>
+                    <th scope="col" class="sortable sort-desc" data-sort="overall" aria-sort="descending">Overall</th>
+                    <th scope="col" class="sortable" data-sort="lsr">LSR</th>
+                    <th scope="col" class="sortable" data-sort="rsr">RSR</th>
+                    <th scope="col" class="sortable" data-sort="esr">ESR</th>
+                    <th scope="col" class="sortable" data-sort="cssr">CSSR</th>
+                    <th scope="col" class="sortable" data-sort="arsr">ARSR</th>
+                    <th scope="col" class="sortable" data-sort="compsr">CompSR</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </article>
 
-          <div class="card figure-card">
-            <img src="assets/self-generate.png" alt="Self-generated skill results compared with no-skill baselines" />
-            <p class="figure-caption">
-              <strong>Self-generated results.</strong> Agents induce skills from their own episodes, revealing whether verifier-grounded experience can become reusable procedural guidance.
-            </p>
-          </div>
+          <article class="card leaderboard-card">
+            <div class="leaderboard-head">
+              <h3>Self-generated Leaderboard</h3>
+              <p>Zero-shot, experience-induced, and always-updated skills compared under the same six reported metrics.</p>
+            </div>
+            <div class="leaderboard-formula">
+              <strong>Overall:</strong> all metrics are reported as percentages and higher is better.
+              <div class="formula-chip">Overall = mean(LSR, RSR, ESR, CSSR, ARSR, CompSR)</div>
+              <div>Rows without an available RSR value average the remaining reported metrics.</div>
+            </div>
+            <div class="table-scroll">
+              <table class="leaderboard-table" data-leaderboard="selfgen">
+                <colgroup>
+                  <col class="rank-col" />
+                  <col class="harness-col" />
+                  <col class="model-col" />
+                  <col class="condition-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                  <col class="metric-col" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col" class="sortable" data-sort="rank">Rank</th>
+                    <th scope="col" class="sortable" data-sort="harness">Agent Harness</th>
+                    <th scope="col" class="sortable" data-sort="model">Model</th>
+                    <th scope="col" class="sortable" data-sort="condition">Condition</th>
+                    <th scope="col" class="sortable sort-desc" data-sort="overall" aria-sort="descending">Overall</th>
+                    <th scope="col" class="sortable" data-sort="lsr">LSR</th>
+                    <th scope="col" class="sortable" data-sort="rsr">RSR</th>
+                    <th scope="col" class="sortable" data-sort="esr">ESR</th>
+                    <th scope="col" class="sortable" data-sort="cssr">CSSR</th>
+                    <th scope="col" class="sortable" data-sort="arsr">ARSR</th>
+                    <th scope="col" class="sortable" data-sort="compsr">CompSR</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </article>
         </div>
+
+        <p class="leaderboard-note">
+          Overall is the arithmetic mean of the reported percentage metrics. Rows with unavailable RSR values keep RSR blank and average the remaining reported metrics.
+        </p>
 
         <div class="metric-glossary" aria-label="Metric definitions">
           <div><strong>LSR</strong>Learning Success Rate on acquisition tasks before the library is frozen.</div>
@@ -1239,6 +1625,303 @@
   </footer>
 
   <script>
+    const metricKeys = ["lsr", "rsr", "esr", "cssr", "arsr", "compsr"];
+
+    function entry(harness, model, condition, lsr, rsr, esr, cssr, arsr, compsr) {
+      return { harness, model, condition, lsr, rsr, esr, cssr, arsr, compsr };
+    }
+
+    const CC = "Claude Code";
+    const CX = "Codex CLI";
+    const GM = "Gemini CLI";
+
+    const leaderboardData = {
+      curated: [
+        entry(CC, "Claude Opus 4.6", "NO-SKILL", 38.9, null, 37.8, 46.7, 36.7, 30.0),
+        entry(CC, "Claude Opus 4.6", "CURATED-STATIC", 40.0, null, 34.4, 46.7, 36.7, 20.0),
+        entry(CC, "Claude Opus 4.6", "CURATED-REVISION", 44.4, 56.7, 38.9, 40.0, 43.3, 33.3),
+        entry(CC, "Claude Opus 4.6", "CURATED-REVISION-ALWAYS", 42.2, 46.7, 37.8, 40.0, 46.7, 26.7),
+        entry(CC, "Claude Opus 4.5", "NO-SKILL", 42.2, null, 32.2, 40.0, 40.0, 16.7),
+        entry(CC, "Claude Opus 4.5", "CURATED-STATIC", 45.6, null, 34.4, 43.3, 40.0, 20.0),
+        entry(CC, "Claude Opus 4.5", "CURATED-REVISION", 38.9, 42.2, 34.4, 43.3, 36.7, 23.3),
+        entry(CC, "Claude Opus 4.5", "CURATED-REVISION-ALWAYS", 42.2, 44.4, 36.7, 43.3, 43.3, 23.3),
+        entry(CC, "Claude Sonnet 4.6", "NO-SKILL", 37.8, null, 38.9, 40.0, 50.0, 26.7),
+        entry(CC, "Claude Sonnet 4.6", "CURATED-STATIC", 41.1, null, 35.6, 36.7, 46.7, 23.3),
+        entry(CC, "Claude Sonnet 4.6", "CURATED-REVISION", 41.1, 51.1, 38.9, 46.7, 43.3, 26.7),
+        entry(CC, "Claude Sonnet 4.6", "CURATED-REVISION-ALWAYS", 40.0, 44.4, 38.9, 46.7, 43.3, 26.7),
+        entry(CC, "Claude Sonnet 4.5", "NO-SKILL", 41.1, null, 35.6, 40.0, 46.7, 20.0),
+        entry(CC, "Claude Sonnet 4.5", "CURATED-STATIC", 35.6, null, 36.7, 43.3, 43.3, 23.3),
+        entry(CC, "Claude Sonnet 4.5", "CURATED-REVISION", 40.0, 42.2, 28.9, 36.7, 33.3, 16.7),
+        entry(CC, "Claude Sonnet 4.5", "CURATED-REVISION-ALWAYS", 37.8, 38.9, 33.3, 40.0, 40.0, 20.0),
+        entry(CX, "GPT-5.4", "NO-SKILL", 43.3, null, 33.3, 43.3, 33.3, 23.3),
+        entry(CX, "GPT-5.4", "CURATED-STATIC", 43.3, null, 32.2, 40.0, 40.0, 16.7),
+        entry(CX, "GPT-5.4", "CURATED-REVISION", 45.6, 45.6, 38.9, 50.0, 43.3, 23.3),
+        entry(CX, "GPT-5.4", "CURATED-REVISION-ALWAYS", 43.3, 42.2, 40.0, 40.0, 50.0, 30.0),
+        entry(CX, "GPT-5.3-Codex", "NO-SKILL", 44.4, null, 34.4, 36.7, 46.7, 20.0),
+        entry(CX, "GPT-5.3-Codex", "CURATED-STATIC", 45.6, null, 32.2, 36.7, 43.3, 16.7),
+        entry(CX, "GPT-5.3-Codex", "CURATED-REVISION", 42.2, 48.9, 34.4, 36.7, 46.7, 20.0),
+        entry(CX, "GPT-5.3-Codex", "CURATED-REVISION-ALWAYS", 42.2, 45.6, 32.2, 40.0, 40.0, 16.7),
+        entry(CX, "GPT-5.2-Codex", "NO-SKILL", 43.3, null, 36.7, 40.0, 53.3, 16.7),
+        entry(CX, "GPT-5.2-Codex", "CURATED-STATIC", 51.1, null, 30.0, 40.0, 36.7, 13.3),
+        entry(CX, "GPT-5.2-Codex", "CURATED-REVISION", 45.6, 43.3, 36.7, 43.3, 46.7, 20.0),
+        entry(CX, "GPT-5.2-Codex", "CURATED-REVISION-ALWAYS", 44.4, 45.6, 37.8, 46.7, 43.3, 23.3),
+        entry(GM, "Gemini 3.1 Pro", "NO-SKILL", 40.0, null, 35.6, 40.0, 46.7, 20.0),
+        entry(GM, "Gemini 3.1 Pro", "CURATED-STATIC", 44.4, null, 35.6, 36.7, 43.3, 26.7),
+        entry(GM, "Gemini 3.1 Pro", "CURATED-REVISION", 43.3, 55.6, 35.6, 36.7, 43.3, 26.7),
+        entry(GM, "Gemini 3.1 Pro", "CURATED-REVISION-ALWAYS", 40.0, 45.6, 35.6, 40.0, 40.0, 26.7),
+        entry(GM, "Gemini 3 Flash", "NO-SKILL", 40.0, null, 35.6, 30.0, 53.3, 23.3),
+        entry(GM, "Gemini 3 Flash", "CURATED-STATIC", 41.1, null, 32.2, 36.7, 43.3, 16.7),
+        entry(GM, "Gemini 3 Flash", "CURATED-REVISION", 42.2, 42.2, 32.2, 30.0, 46.7, 20.0),
+        entry(GM, "Gemini 3 Flash", "CURATED-REVISION-ALWAYS", 43.3, 37.8, 37.8, 46.7, 36.7, 30.0),
+        entry(GM, "Gemini 2.5 Pro", "NO-SKILL", 30.0, null, 26.7, 26.7, 30.0, 23.3),
+        entry(GM, "Gemini 2.5 Pro", "CURATED-STATIC", 30.0, null, 18.9, 20.0, 23.3, 13.3),
+        entry(GM, "Gemini 2.5 Pro", "CURATED-REVISION", 28.9, 32.2, 21.1, 16.7, 30.0, 16.7),
+        entry(GM, "Gemini 2.5 Pro", "CURATED-REVISION-ALWAYS", 31.1, 26.7, 24.4, 26.7, 23.3, 23.3)
+      ],
+      selfgen: [
+        entry(CC, "Claude Opus 4.6", "NO-SKILL", 38.9, null, 37.8, 46.7, 36.7, 30.0),
+        entry(CC, "Claude Opus 4.6", "SELFGEN-ZERO-SHOT", 41.1, null, 32.2, 40.0, 33.3, 23.3),
+        entry(CC, "Claude Opus 4.6", "SELFGEN-REVISION", 44.4, 48.9, 32.2, 40.0, 36.7, 20.0),
+        entry(CC, "Claude Opus 4.6", "SELFGEN-ALWAYS", 42.2, 45.6, 37.8, 43.3, 46.7, 23.3),
+        entry(CC, "Claude Opus 4.5", "NO-SKILL", 42.2, null, 32.2, 40.0, 40.0, 16.7),
+        entry(CC, "Claude Opus 4.5", "SELFGEN-ZERO-SHOT", 41.1, null, 34.4, 43.3, 40.0, 20.0),
+        entry(CC, "Claude Opus 4.5", "SELFGEN-REVISION", 42.2, 40.0, 31.1, 33.3, 40.0, 20.0),
+        entry(CC, "Claude Opus 4.5", "SELFGEN-ALWAYS", 41.1, 40.0, 35.6, 40.0, 40.0, 26.7),
+        entry(CC, "Claude Sonnet 4.6", "NO-SKILL", 37.8, null, 38.9, 40.0, 50.0, 26.7),
+        entry(CC, "Claude Sonnet 4.6", "SELFGEN-ZERO-SHOT", 37.8, null, 36.7, 40.0, 43.3, 26.7),
+        entry(CC, "Claude Sonnet 4.6", "SELFGEN-REVISION", 44.4, 46.7, 40.0, 46.7, 40.0, 33.3),
+        entry(CC, "Claude Sonnet 4.6", "SELFGEN-ALWAYS", 41.1, 46.7, 40.0, 40.0, 50.0, 30.0),
+        entry(CC, "Claude Sonnet 4.5", "NO-SKILL", 41.1, null, 35.6, 40.0, 46.7, 20.0),
+        entry(CC, "Claude Sonnet 4.5", "SELFGEN-ZERO-SHOT", 41.1, null, 27.8, 33.3, 30.0, 20.0),
+        entry(CC, "Claude Sonnet 4.5", "SELFGEN-REVISION", 36.7, 41.1, 35.6, 40.0, 40.0, 26.7),
+        entry(CC, "Claude Sonnet 4.5", "SELFGEN-ALWAYS", 38.9, 44.4, 33.3, 40.0, 40.0, 20.0),
+        entry(CX, "GPT-5.4", "NO-SKILL", 43.3, null, 33.3, 43.3, 33.3, 23.3),
+        entry(CX, "GPT-5.4", "SELFGEN-ZERO-SHOT", 45.6, null, 33.3, 43.3, 40.0, 16.7),
+        entry(CX, "GPT-5.4", "SELFGEN-REVISION", 45.6, 44.4, 31.1, 40.0, 36.7, 16.7),
+        entry(CX, "GPT-5.4", "SELFGEN-ALWAYS", 44.4, 43.3, 35.6, 46.7, 40.0, 20.0),
+        entry(CX, "GPT-5.3-Codex", "NO-SKILL", 44.4, null, 34.4, 36.7, 46.7, 20.0),
+        entry(CX, "GPT-5.3-Codex", "SELFGEN-ZERO-SHOT", 46.7, null, 34.4, 43.3, 40.0, 20.0),
+        entry(CX, "GPT-5.3-Codex", "SELFGEN-REVISION", 42.2, 48.9, 31.1, 40.0, 40.0, 13.3),
+        entry(CX, "GPT-5.3-Codex", "SELFGEN-ALWAYS", 44.4, 48.9, 34.4, 36.7, 43.3, 23.3),
+        entry(CX, "GPT-5.2-Codex", "NO-SKILL", 43.3, null, 36.7, 40.0, 53.3, 16.7),
+        entry(CX, "GPT-5.2-Codex", "SELFGEN-ZERO-SHOT", 45.6, null, 30.0, 33.3, 36.7, 20.0),
+        entry(CX, "GPT-5.2-Codex", "SELFGEN-REVISION", 45.6, 42.2, 34.4, 36.7, 43.3, 23.3),
+        entry(CX, "GPT-5.2-Codex", "SELFGEN-ALWAYS", 46.7, 46.7, 38.9, 50.0, 43.3, 23.3),
+        entry(GM, "Gemini 3.1 Pro", "NO-SKILL", 40.0, null, 35.6, 40.0, 46.7, 20.0),
+        entry(GM, "Gemini 3.1 Pro", "SELFGEN-ZERO-SHOT", 43.3, null, 36.7, 36.7, 46.7, 26.7),
+        entry(GM, "Gemini 3.1 Pro", "SELFGEN-REVISION", 47.8, 53.3, 32.2, 36.7, 36.7, 23.3),
+        entry(GM, "Gemini 3.1 Pro", "SELFGEN-ALWAYS", 42.2, 41.1, 33.3, 33.3, 43.3, 23.3),
+        entry(GM, "Gemini 3 Flash", "NO-SKILL", 40.0, null, 35.6, 30.0, 53.3, 23.3),
+        entry(GM, "Gemini 3 Flash", "SELFGEN-ZERO-SHOT", 38.9, null, 40.0, 43.3, 53.3, 23.3),
+        entry(GM, "Gemini 3 Flash", "SELFGEN-REVISION", 40.0, 43.3, 33.3, 36.7, 40.0, 23.3),
+        entry(GM, "Gemini 3 Flash", "SELFGEN-ALWAYS", 35.6, 40.0, 36.7, 36.7, 43.3, 30.0),
+        entry(GM, "Gemini 2.5 Pro", "NO-SKILL", 30.0, null, 26.7, 26.7, 30.0, 23.3),
+        entry(GM, "Gemini 2.5 Pro", "SELFGEN-ZERO-SHOT", 28.9, null, 15.6, 13.3, 13.3, 20.0),
+        entry(GM, "Gemini 2.5 Pro", "SELFGEN-REVISION", 27.8, 32.2, 20.0, 20.0, 30.0, 10.0),
+        entry(GM, "Gemini 2.5 Pro", "SELFGEN-ALWAYS", 31.1, 34.4, 25.6, 40.0, 20.0, 16.7)
+      ]
+    };
+
+    const leaderboardSort = {
+      curated: { key: "overall", direction: "desc" },
+      selfgen: { key: "overall", direction: "desc" }
+    };
+
+    function computeOverall(row) {
+      const values = metricKeys.map((key) => row[key]).filter((value) => Number.isFinite(value));
+      return values.reduce((sum, value) => sum + value, 0) / values.length;
+    }
+
+    Object.values(leaderboardData).forEach((rows) => {
+      rows.forEach((row) => {
+        row.overall = computeOverall(row);
+      });
+      [...rows]
+        .sort((a, b) => b.overall - a.overall)
+        .forEach((row, index) => {
+          row.rank = index + 1;
+        });
+    });
+
+    function sortableValue(row, key, direction) {
+      const value = row[key];
+      if (Number.isFinite(value)) {
+        return value;
+      }
+      if (typeof value === "string") {
+        return value.toLowerCase();
+      }
+      return direction === "asc" ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
+    }
+
+    function formatMetric(value) {
+      return Number.isFinite(value) ? value.toFixed(1) : "";
+    }
+
+    function addCell(row, text, className) {
+      const cell = document.createElement("td");
+      cell.textContent = text;
+      if (className) {
+        cell.className = className;
+      }
+      row.appendChild(cell);
+    }
+
+    function logoForLabel(label) {
+      if (label === "Claude Code") {
+        return "assets/claudecode-color.svg";
+      }
+      if (label === "Codex CLI") {
+        return "assets/codex-color.svg";
+      }
+      if (label === "Gemini CLI") {
+        return "assets/geminicli-color.svg";
+      }
+      if (label.includes("Claude")) {
+        return "assets/claude-color.svg";
+      }
+      if (label.includes("GPT") || label.includes("Codex")) {
+        return "assets/openai.svg";
+      }
+      if (label.includes("Gemini")) {
+        return "assets/gemini-color.svg";
+      }
+      return "";
+    }
+
+    function addLogoCell(row, text) {
+      const cell = document.createElement("td");
+      const wrap = document.createElement("span");
+      const icon = document.createElement("img");
+      const label = document.createElement("span");
+
+      wrap.className = "label-with-logo";
+      icon.className = "leaderboard-logo";
+      icon.src = logoForLabel(text);
+      icon.alt = "";
+      icon.setAttribute("aria-hidden", "true");
+      label.className = "label-text";
+      label.textContent = text;
+
+      wrap.append(icon, label);
+      cell.appendChild(wrap);
+      row.appendChild(cell);
+    }
+
+    function addMetricCell(row, value, className) {
+      const cell = document.createElement("td");
+      const number = document.createElement("span");
+      number.className = "metric-value";
+      number.textContent = formatMetric(value);
+      if (className) {
+        cell.className = className;
+      }
+      if (!Number.isFinite(value)) {
+        cell.classList.add("missing-cell");
+      }
+      cell.appendChild(number);
+      row.appendChild(cell);
+    }
+
+    function addRankCell(row, rank) {
+      const cell = document.createElement("td");
+      const badge = document.createElement("span");
+      badge.className = `rank-badge ${rank <= 3 ? `rank-${rank}` : "rank-other"}`;
+      badge.textContent = String(rank);
+      cell.appendChild(badge);
+      row.appendChild(cell);
+    }
+
+    function renderLeaderboard(name) {
+      const table = document.querySelector(`[data-leaderboard="${name}"]`);
+      if (!table) {
+        return;
+      }
+
+      const state = leaderboardSort[name];
+      const rows = [...leaderboardData[name]].sort((a, b) => {
+        const av = sortableValue(a, state.key, state.direction);
+        const bv = sortableValue(b, state.key, state.direction);
+        let result = 0;
+
+        if (typeof av === "string" || typeof bv === "string") {
+          result = String(av).localeCompare(String(bv));
+        } else {
+          result = av - bv;
+        }
+
+        if (result === 0) {
+          result = b.overall - a.overall;
+        }
+
+        return state.direction === "asc" ? result : -result;
+      });
+
+      table.querySelectorAll("th").forEach((header) => {
+        header.removeAttribute("aria-sort");
+        header.classList.remove("sort-asc", "sort-desc");
+      });
+      table.querySelectorAll("th.sortable").forEach((header) => {
+        const active = header.dataset.sort === state.key;
+        if (active) {
+          header.classList.add(state.direction === "asc" ? "sort-asc" : "sort-desc");
+          header.setAttribute("aria-sort", state.direction === "asc" ? "ascending" : "descending");
+        }
+      });
+
+      const body = table.querySelector("tbody");
+      body.classList.remove("sorting");
+      body.replaceChildren();
+
+      rows.forEach((data, index) => {
+        const row = document.createElement("tr");
+        row.style.setProperty("--row-index", String(Math.min(index, 18)));
+        if (data.condition === "NO-SKILL") {
+          row.className = "baseline";
+        }
+
+        addRankCell(row, data.rank);
+        addLogoCell(row, data.harness);
+        addLogoCell(row, data.model);
+        addCell(row, data.condition);
+        addMetricCell(row, data.overall, "overall-cell");
+        metricKeys.forEach((key) => {
+          addMetricCell(row, data[key]);
+        });
+        body.appendChild(row);
+      });
+
+      window.clearTimeout(body._sortingTimer);
+      requestAnimationFrame(() => {
+        body.classList.add("sorting");
+        body._sortingTimer = window.setTimeout(() => {
+          body.classList.remove("sorting");
+        }, 620);
+      });
+    }
+
+    document.querySelectorAll(".leaderboard-table th.sortable").forEach((header) => {
+      header.addEventListener("click", () => {
+        const tableName = header.closest(".leaderboard-table").dataset.leaderboard;
+        const state = leaderboardSort[tableName];
+        const key = header.dataset.sort;
+
+        if (state.key === key) {
+          state.direction = state.direction === "desc" ? "asc" : "desc";
+        } else {
+          state.key = key;
+          state.direction = metricKeys.includes(key) || key === "overall" ? "desc" : "asc";
+        }
+
+        renderLeaderboard(tableName);
+      });
+    });
+
+    ["curated", "selfgen"].forEach((name) => {
+      leaderboardSort[name] = { key: "overall", direction: "desc" };
+      renderLeaderboard(name);
+    });
+
     function copyBibtex() {
       const text = document.getElementById("bibtex").innerText;
       navigator.clipboard.writeText(text).then(() => {
