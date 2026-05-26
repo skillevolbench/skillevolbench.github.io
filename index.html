@@ -203,6 +203,15 @@
       text-wrap: balance;
     }
 
+    .team-label {
+      margin: 10px auto 0;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 900;
+      text-align: center;
+    }
+
     .correspondence {
       max-width: 980px;
       margin: 12px auto 0;
@@ -1122,6 +1131,7 @@
         <a href="#introduction">Introduction</a>
         <a href="#benchmark">Benchmark</a>
         <a href="#protocol">Protocol</a>
+        <a href="#leaderboard">Leaderboard</a>
         <a href="#findings">Findings</a>
         <a href="#citation">Citation</a>
       </div>
@@ -1175,6 +1185,8 @@
         * Equal contribution
       </div>
 
+      <div class="team-label">SkillEvolBench Team</div>
+
       <div class="correspondence">
         Correspondence: Tuo Zhang <code>tuozhang@amazon.com</code>, Mi Zhang <code>mizhang.1@osu.edu</code>
       </div>
@@ -1204,6 +1216,10 @@
             <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10a2 2 0 0 1 2 2v14l-7-3-7 3V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </span>
           BibTeX
+        </a>
+        <a class="button" href="#leaderboard">
+          <span class="button-icon" aria-hidden="true">🏆</span>
+          Leaderboard
         </a>
       </div>
     </header>
@@ -1465,7 +1481,7 @@
           </div>
         </div>
 
-        <div class="leaderboard-grid" aria-label="Skill evolution leaderboards">
+        <div id="leaderboard" class="leaderboard-grid" aria-label="Skill evolution leaderboards">
           <article class="card leaderboard-card">
             <div class="leaderboard-head">
               <h3>Curated-start Leaderboard</h3>
